@@ -56,7 +56,20 @@ fn main() {
     rect1.change_width(-45);
     dbg!(&rect1);
 
+    let rect2 = Rectangle {
+        width: 20,
+        height: 35,
+    };
+    let rect3 = Rectangle {
+        width: 80,
+        height: 60,
+    };
 
+    println!("Can rect1 hold rect2 {}", rect1.can_hold(&rect2));
+    println!("Cant rect1 hold rect3 {}", rect1.can_hold(&rect3));
+
+    let sq = Rectangle::square(12);
+    println!("{:?}", sq);
 }
 
 struct User {
@@ -125,6 +138,25 @@ impl Rectangle {
         }
         else {
             self.width += change as u32;
+        }
+    }
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        if other.width < self.width && other.height < self.height {
+            true
+        }
+        else {
+            false
+        }
+    }
+    // this is an ASSOCIATED function, functions a part of a structs impl that don't take &self
+    // as a parameter
+    // NOTE: associated functions are often used for constructors because they return an instance
+    // of the struct
+    // NOTE: associated functions are called using '::' syntax
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
         }
     }
 }
